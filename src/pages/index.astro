@@ -1,75 +1,96 @@
 ---
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
-import { SITE } from '../data/site';
-import { TOOLS } from '../data/tools';
+import { SITE, PROJECT_ICON } from '../data/site';
+import { TOOLS, GROUP_ICON } from '../data/tools';
 
 const projects = (await getCollection('du-an')).sort((a, b) => a.data.thuTu - b.data.thuTu);
-const posts = (await getCollection('bai-viet', ({ data }) => !data.nhap))
-  .sort((a, b) => b.data.ngayDang.valueOf() - a.data.ngayDang.valueOf())
-  .slice(0, 3);
+const allPosts = (await getCollection('bai-viet', ({ data }) => !data.nhap))
+  .sort((a, b) => b.data.ngayDang.valueOf() - a.data.ngayDang.valueOf() || a.id.localeCompare(b.id));
+const posts = allPosts.slice(0, 3);
 const totalProjects = projects.reduce((n, p) => n + p.data.soDuAn, 0);
 const regions = [...new Set(projects.flatMap((p) => p.data.vung))];
+const featuredTools = ['CSHLCaculator', 'IrsWorkflows', 'ACHLCaculation']
+  .map((r) => TOOLS.find((t) => t.repo === r))
+  .filter((t) => t !== undefined);
 ---
 <Base>
-  <section class="hero">
+  <div class="hero">
     <p class="eyebrow">Lạnh công nghiệp · Kho lạnh – Cấp đông · HVAC · MEP · BIM</p>
     <h1>{SITE.name}</h1>
     <p class="lead">
-      Kỹ sư lạnh công nghiệp, {SITE.role.toLowerCase()} – {SITE.company}. Tư vấn, thiết kế và triển khai
+      Kỹ sư lạnh công nghiệp, {SITE.role} – {SITE.company}. Tư vấn, thiết kế và triển khai
       hệ thống lạnh, kho lạnh – cấp đông, HVAC và MEP cho nhà máy chế biến và kho logistics.
     </p>
     <div class="actions">
       <a class="btn primary" href="/du-an/">Xem dự án tiêu biểu</a>
       <a class="btn" href="/cong-cu/">Công cụ tính toán</a>
     </div>
-  </section>
+    <span class="hero-flake"><Icon name="snow" /></span>
+  </div>
 
-  <div class="stats" aria-label="Số liệu tóm tắt">
+  <div class="stats reveal" aria-label="Số liệu tóm tắt">
     <div class="stat"><b>{totalProjects}</b><span>dự án tiêu biểu</span></div>
-    <div class="stat"><b>{regions.length}</b><span>vùng đã thực hiện dự án</span></div>
+    <div class="stat"><b>{regions.length}</b><span>khu vực đã thực hiện dự án</span></div>
     <div class="stat"><b>{TOOLS.length}</b><span>công cụ tự phát triển</span></div>
+    <div class="stat"><b>{allPosts.length}</b><span>bài viết</span></div>
   </div>
 
-  <h2>Dự án tiêu biểu</h2>
-  <div class="grid">
-    {projects.map((p) => (
-      <article class="card">
-        <a class="stretch" href={`/du-an/${p.id}/`}>
-          <h3>{p.data.title}</h3>
-          <p>{p.data.vung.join(', ')}</p>
-          <p class="meta">{p.data.soDuAn} dự án · {p.data.namBatDau}–{p.data.namKetThuc}</p>
-        </a>
-      </article>
-    ))}
-  </div>
-
-  <h2>Công cụ tự phát triển</h2>
-  <div class="grid">
-    {TOOLS.slice(0, 3).map((t) => (
-      <article class="card">
-        <a class="stretch" href={`/${t.repo}/`}>
-          <h3>{t.name}</h3>
-          <p>{t.summary}</p>
-        </a>
-      </article>
-    ))}
-  </div>
-  <p><a href="/cong-cu/">Xem tất cả {TOOLS.length} công cụ →</a></p>
-
-  <h2>Bài viết kỹ thuật</h2>
-  {posts.length === 0 ? (
-    <p class="empty">Bài viết đầu tiên đang được chuẩn bị.</p>
-  ) : (
-    <div class="grid">
-      {posts.map((post) => (
+  <section>
+    <div class="section-head">
+      <h2>Dự án tiêu biểu</h2>
+      <a href="/du-an/">Tất cả dự án →</a>
+    </div>
+    <div class="grid reveal">
+      {projects.map((p) => (
         <article class="card">
-          <a class="stretch" href={`/bai-viet/${post.id}/`}>
-            <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
-          </a>
+          <span class="icon-badge"><Icon name={PROJECT_ICON[p.id] ?? 'snow'} /></span>
+          <a class="stretch" href={`/du-an/${p.id}/`}><h3>{p.data.title}</h3></a>
+          <p>{p.data.vung.join(', ')}</p>
+          <p class="meta"><span>{p.data.soDuAn} dự án</span><span>{p.data.namBatDau}–{p.data.namKetThuc}</span></p>
+          <span class="go"><Icon name="arrow" /></span>
         </article>
       ))}
     </div>
-  )}
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Công cụ tự phát triển</h2>
+      <a href="/cong-cu/">Tất cả {TOOLS.length} công cụ →</a>
+    </div>
+    <div class="grid reveal">
+      {featuredTools.map((t) => (
+        <article class="card">
+          <span class="icon-badge"><Icon name={GROUP_ICON[t.group]} /></span>
+          <a class="stretch" href={`/${t.repo}/`}><h3>{t.name}</h3></a>
+          <p>{t.summary}</p>
+          <p class="meta"><span class="tag">{t.group}</span></p>
+          <span class="go"><Icon name="arrow" /></span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Bài viết</h2>
+      <a href="/bai-viet/">Tất cả bài viết →</a>
+    </div>
+    {posts.length === 0 ? (
+      <p class="empty">Bài viết đầu tiên đang được chuẩn bị.</p>
+    ) : (
+      <div class="grid reveal">
+        {posts.map((post) => (
+          <article class="card">
+            <span class="tag alt">{post.data.loai === 'ky-thuat' ? 'Kỹ thuật' : 'Giới thiệu'}</span>
+            <a class="stretch" href={`/bai-viet/${post.id}/`}><h3>{post.data.title}</h3></a>
+            <p>{post.data.description}</p>
+            <span class="go"><Icon name="arrow" /></span>
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
 </Base>

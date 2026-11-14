@@ -12,17 +12,27 @@ const { Content } = await render(entry);
 const d = entry.data;
 const fmt = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'long', timeZone: 'Asia/Ho_Chi_Minh' });
 ---
-<Base title={d.title} description={d.description}>
+<Base title={d.title} description={d.description} article>
   <p class="breadcrumb"><a href="/bai-viet/">Bài viết</a> / {d.title}</p>
   <article class="prose">
     <h1>{d.title}</h1>
-    <p class="meta">
-      Đăng <time datetime={d.ngayDang.toISOString()}>{fmt.format(d.ngayDang)}</time>
-      {d.ngayCapNhat && <> · cập nhật <time datetime={d.ngayCapNhat.toISOString()}>{fmt.format(d.ngayCapNhat)}</time></>}
+    <p class="article-meta">
+      <span class="tag alt">{d.loai === 'ky-thuat' ? 'Kỹ thuật' : 'Giới thiệu'}</span>
+      <span>Đăng <time datetime={d.ngayDang.toISOString()}>{fmt.format(d.ngayDang)}</time></span>
+      {d.ngayCapNhat && <span>Cập nhật <time datetime={d.ngayCapNhat.toISOString()}>{fmt.format(d.ngayCapNhat)}</time></span>}
     </p>
     <Content />
-    <h2>Căn cứ</h2>
-    <ul>{d.canCu.map((c) => <li>{c}</li>)}</ul>
-    <p class="note">Nội dung mang tính tham khảo kỹ thuật, không thay thế thiết kế có thẩm tra.</p>
+    {d.canCu.length > 0 && (
+      <aside class="refs">
+        <h2>Căn cứ</h2>
+        <ul>{d.canCu.map((c) => <li>{c}</li>)}</ul>
+      </aside>
+    )}
+    {d.loai === 'ky-thuat' && (
+      <p class="note">Nội dung mang tính tham khảo kỹ thuật, không thay thế thiết kế có thẩm tra.</p>
+    )}
+    <div class="actions">
+      <a class="btn" href="/bai-viet/">Các bài viết khác</a>
+    </div>
   </article>
 </Base>

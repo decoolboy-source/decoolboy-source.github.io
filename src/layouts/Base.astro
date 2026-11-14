@@ -5,9 +5,10 @@ import { SITE, NAV } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
+  article?: boolean;
 }
 
-const { title, description = SITE.description } = Astro.props;
+const { title, description = SITE.description, article = false } = Astro.props;
 const fullTitle = title ? `${title} | ${SITE.name}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const path = Astro.url.pathname;
@@ -23,14 +24,19 @@ const isActive = (href: string) => path === href || path.startsWith(href);
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="preload" href="/fonts/bvp-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bvp-latin-700.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="color-scheme" content="light dark" />
-    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0a2540" />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:locale" content="vi_VN" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
   </head>
   <body>
+    {article && <div class="read-progress" aria-hidden="true"></div>}
     <a class="skip" href="#noi-dung">Bỏ qua điều hướng</a>
     <header class="site-header">
       <div class="wrap header-inner">
@@ -54,8 +60,30 @@ const isActive = (href: string) => path === href || path.startsWith(href);
     </main>
     <footer class="site-footer">
       <div class="wrap footer-inner">
-        <p>© {new Date().getFullYear()} {SITE.name}. Nội dung tự viết; số liệu dự án đã làm tròn.</p>
-        <p><a href="/chinh-sach/">Miễn trừ trách nhiệm &amp; quyền riêng tư</a> · <a href="/lien-he/">Liên hệ</a></p>
+        <div class="footer-brand">
+          <a class="brand" href="/">
+            <span class="brand-mark" aria-hidden="true">QĐ</span>
+            <span class="brand-text">{SITE.name}</span>
+          </a>
+          <p>Kỹ sư lạnh công nghiệp · Kho lạnh – Cấp đông · HVAC · MEP · BIM</p>
+        </div>
+        <nav aria-label="Nội dung">
+          <h2>Nội dung</h2>
+          <ul>
+            {NAV.slice(0, 5).map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+          </ul>
+        </nav>
+        <nav aria-label="Thông tin">
+          <h2>Thông tin</h2>
+          <ul>
+            <li><a href="/lien-he/">Liên hệ</a></li>
+            <li><a href="/namecard/">Namecard điện tử</a></li>
+            <li><a href="/chinh-sach/">Miễn trừ &amp; quyền riêng tư</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="wrap footer-bottom">
+        <p>© {new Date().getFullYear()} {SITE.name}. Nội dung tự viết; số liệu dự án đã làm tròn. Website không dùng cookie.</p>
       </div>
     </footer>
   </body>

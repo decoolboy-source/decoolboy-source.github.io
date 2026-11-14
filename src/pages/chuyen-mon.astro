@@ -1,39 +1,51 @@
 ---
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../data/icons';
 
-const areas = [
+const areas: { title: string; text: string; icon: IconName }[] = [
   {
+    icon: 'snow',
     title: 'Lạnh công nghiệp',
     text: 'Hệ thống lạnh trung tâm cho nhà máy chế biến: lựa chọn chu trình, máy nén, thiết bị ngưng tụ và bay hơi phù hợp tải và điều kiện vận hành.',
   },
   {
+    icon: 'warehouse',
     title: 'Kho lạnh – Cấp đông IQF',
     text: 'Kho lạnh bảo quản, kho logistics; dây chuyền cấp đông IQF băng lưới, băng thép, tủ đông tiếp xúc, tủ đông gió, mạ băng và tái đông.',
   },
   {
+    icon: 'wind',
     title: 'HVAC & Thông gió',
     text: 'Điều hòa không khí và thông gió cho nhà xưởng, phòng sạch, phòng điện và trung tâm dữ liệu.',
   },
   {
+    icon: 'layers',
     title: 'MEP / BIM Revit',
     text: 'Phối hợp các hệ cơ điện trong nhà máy; dựng mô hình BIM trên Revit để kiểm tra va chạm và bóc khối lượng.',
   },
   {
+    icon: 'calc',
     title: 'Dự toán – Đấu thầu',
     text: 'Bóc tách khối lượng, lập dự toán và hồ sơ chào thầu cho các gói lạnh công nghiệp, HVAC và MEP.',
   },
   {
+    icon: 'sun',
     title: 'Điện mặt trời',
     text: 'Hệ điện mặt trời áp mái cho nhà máy và kho lạnh nhằm giảm chi phí điện vận hành.',
   },
 ];
 ---
 <Base title="Lĩnh vực chuyên môn" description="Lạnh công nghiệp, kho lạnh – cấp đông IQF, HVAC, MEP/BIM, dự toán – đấu thầu và điện mặt trời.">
-  <h1>Lĩnh vực chuyên môn</h1>
-  <p class="lead">Sáu mảng việc chính trong các dự án đã tham gia.</p>
-  <div class="grid">
+  <header class="page-head">
+    <p class="eyebrow">Chuyên môn</p>
+    <h1>Lĩnh vực chuyên môn</h1>
+    <p class="lead">Sáu mảng việc chính trong các dự án đã tham gia.</p>
+  </header>
+  <div class="grid reveal">
     {areas.map((a) => (
-      <article class="card">
+      <article class="card lift">
+        <span class="icon-badge"><Icon name={a.icon} /></span>
         <h3>{a.title}</h3>
         <p>{a.text}</p>
       </article>

@@ -24,14 +24,21 @@ const duAn = defineCollection({
 // Bài viết: bắt buộc ghi căn cứ cho hệ số, công thức (CLAUDE.md mục 3.3).
 const baiViet = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/bai-viet' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    ngayDang: z.coerce.date(),
-    ngayCapNhat: z.coerce.date().optional(),
-    canCu: z.array(z.string()).min(1, 'Bài viết phải ghi căn cứ (TCVN/QCVN/ASHRAE/ASME).'),
-    nhap: z.boolean().default(false),
-  }),
+  // loai 'ky-thuat' (mặc định): bắt buộc có canCu. loai 'gioi-thieu': bài không chứa hệ số, công thức.
+  schema: z
+    .object({
+      title: z.string(),
+      description: z.string(),
+      loai: z.enum(['ky-thuat', 'gioi-thieu']).default('ky-thuat'),
+      ngayDang: z.coerce.date(),
+      ngayCapNhat: z.coerce.date().optional(),
+      canCu: z.array(z.string()).default([]),
+      nhap: z.boolean().default(false),
+    })
+    .refine((d) => d.loai !== 'ky-thuat' || d.canCu.length > 0, {
+      message: 'Bài kỹ thuật phải ghi căn cứ (TCVN/QCVN/ASHRAE/ASME) trong canCu.',
+      path: ['canCu'],
+    }),
 });
 
 export const collections = { 'du-an': duAn, 'bai-viet': baiViet };

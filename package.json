@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Website cá nhân Dương Quốc Đệ – Astro, xuất tĩnh, deploy GitHub Pages",
+  "engines": {
+    "node": ">=22.24.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/check-links.mjs",

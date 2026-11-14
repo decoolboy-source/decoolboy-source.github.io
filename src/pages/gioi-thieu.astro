@@ -3,13 +3,16 @@ import Base from '../layouts/Base.astro';
 import { SITE } from '../data/site';
 ---
 <Base title="Giới thiệu" description="Giới thiệu Dương Quốc Đệ – kỹ sư lạnh công nghiệp, kho lạnh – cấp đông, HVAC, MEP và BIM.">
-  <div class="prose">
+  <header class="page-head">
+    <p class="eyebrow">Hồ sơ</p>
     <h1>Giới thiệu</h1>
     <p class="lead">
       {SITE.name} – kỹ sư lạnh công nghiệp, hiện là {SITE.role} tại {SITE.company}.
     </p>
+  </header>
+  <div class="prose">
 
-    <h2>Công việc</h2>
+    <h2 style="margin-top:0">Công việc</h2>
     <p>
       Tham gia các dự án lạnh công nghiệp trọn gói cho nhà máy chế biến thủy sản, nông sản – thực phẩm và kho lạnh
       logistics: từ khảo sát, lập phương án, thiết kế, dự toán – đấu thầu đến triển khai và chuyển giao.

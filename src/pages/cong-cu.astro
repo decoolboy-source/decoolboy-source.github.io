@@ -1,33 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
-import { TOOLS } from '../data/tools';
+import Icon from '../components/Icon.astro';
+import { TOOLS, GROUP_ICON } from '../data/tools';
 
 const groups = [...new Set(TOOLS.map((t) => t.group))];
 ---
 <Base title="Công cụ tự phát triển" description="Ứng dụng web (PWA) tính toán tải nhiệt kho lạnh, HVAC và tra cứu thiết bị lạnh, dùng được khi không có mạng.">
-  <h1>Công cụ tự phát triển</h1>
-  <p class="lead">
-    Ứng dụng web cài được lên điện thoại, máy tính (PWA) và dùng được khi không có mạng. Mỗi công cụ là một ứng dụng
-    riêng; dữ liệu anh/chị nhập chỉ lưu trong trình duyệt trên thiết bị của mình.
-  </p>
+  <header class="page-head">
+    <p class="eyebrow">Công cụ</p>
+    <h1>Công cụ tự phát triển</h1>
+    <p class="lead">
+      Ứng dụng web cài được lên điện thoại, máy tính (PWA) và dùng được khi không có mạng. Mỗi công cụ là một ứng dụng
+      riêng; dữ liệu anh/chị nhập chỉ lưu trong trình duyệt trên thiết bị của mình.
+    </p>
+  </header>
 
   <p class="note">
     <strong>Miễn trừ:</strong> kết quả từ các công cụ chỉ để tham khảo sơ bộ, không thay thế thiết kế có thẩm tra.
     Người dùng tự kiểm tra số liệu đầu vào, hệ số và tiêu chuẩn áp dụng cho công trình của mình.
-    Xem thêm <a href="/chinh-sach/">Miễn trừ trách nhiệm</a>.
+    Xem thêm <a href="/chinh-sach/">Miễn trừ trách nhiệm</a> và bài{" "}
+    <a href="/bai-viet/bo-cong-cu-tinh-toan/">giới thiệu bộ công cụ</a>.
   </p>
 
   {groups.map((g) => (
     <section>
-      <h2>{g}</h2>
-      <div class="grid">
+      <div class="section-head"><h2>{g}</h2></div>
+      <div class="grid reveal">
         {TOOLS.filter((t) => t.group === g).map((t) => (
           <article class="card">
-            <a class="stretch" href={`/${t.repo}/`}>
-              <h3>{t.name}</h3>
-              <p>{t.summary}</p>
-              <p class="meta">/{t.repo}/</p>
-            </a>
+            <span class="icon-badge"><Icon name={GROUP_ICON[t.group]} /></span>
+            <a class="stretch" href={`/${t.repo}/`}><h3>{t.name}</h3></a>
+            <p>{t.summary}</p>
+            <p class="meta"><span class="path">/{t.repo}/</span></p>
+            <span class="go"><Icon name="arrow" /></span>
           </article>
         ))}
       </div>

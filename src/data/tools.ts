@@ -1,6 +1,8 @@
 // Mỗi công cụ là một repo riêng, chạy chung origin tại /<repo>/.
 // `repo` phải ghi đúng chữ hoa/thường như bảng mục 6 của CLAUDE.md;
 // scripts/check-links.mjs đối chiếu danh sách này với bảng đó khi build.
+import type { IconName } from './icons';
+
 export interface Tool {
   repo: string;
   name: string;
@@ -49,6 +51,13 @@ export const TOOLS: Tool[] = [
     repo: 'Toolkits',
     name: 'AppThermoEngine',
     group: 'Nhiệt động',
-    summary: 'Tra cứu tính chất nhiệt động môi chất và không khí ẩm.',
+    summary: 'Bộ tra cứu nhanh: tính chất môi chất lạnh, không khí ẩm, cỡ ống gió, tổn thất áp suất đường ống, cách nhiệt.',
   },
 ];
+
+export const GROUP_ICON: Record<Tool['group'], IconName> = {
+  'Lạnh công nghiệp': 'snow',
+  HVAC: 'wind',
+  'Tra cứu thiết bị': 'search',
+  'Nhiệt động': 'gauge',
+};

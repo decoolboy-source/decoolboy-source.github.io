@@ -16,7 +16,7 @@ Ngôn ngữ: chỉ tiếng Việt (`<html lang="vi">`). Cấu trúc thư mục v
 - Astro, chế độ xuất tĩnh (`output: 'static'`), nội dung bài viết và dự án bằng Markdown (content collections).
 - Deploy bằng GitHub Actions theo hướng dẫn chính thức của Astro cho GitHub Pages.
 - `astro.config.mjs`: chỉ đặt `site: 'https://decoolboy-source.github.io'`, **không đặt `base`** (đây là site gốc của tài khoản).
-- Mặc định không gửi JavaScript tới trình duyệt. Chỉ thêm JS khi thật cần và ghi lý do trong commit.
+- Mặc định không gửi JavaScript tới trình duyệt. Chỉ thêm JS khi thật cần và ghi lý do trong commit. Hiệu ứng giao diện làm bằng CSS và phải tôn trọng `prefers-reduced-motion`.
 - Không dùng framework UI (React, Vue...) nếu không có yêu cầu.
 
 ## 3. Quy tắc bắt buộc
@@ -39,7 +39,7 @@ Namecard và các PWA nằm ở repo riêng, chạy chung origin `decoolboy-sour
 - Repo công khai: không commit bản vẽ, BOQ, báo giá, file Excel nội bộ, ảnh chụp tài liệu NASA, kể cả tạm thời.
 
 ### 3.3 Kỹ thuật – nội dung
-- Hệ số, công thức kỹ thuật trong bài viết phải ghi căn cứ (TCVN/QCVN/ASHRAE/ASME). Không tự đặt hệ số.
+- Hệ số, công thức kỹ thuật trong bài viết phải ghi căn cứ (TCVN/QCVN/ASHRAE/ASME). Không tự đặt hệ số. Bài `loai: ky-thuat` bắt buộc có `canCu` (build báo lỗi nếu thiếu); bài `loai: gioi-thieu` không được chứa hệ số, công thức.
 - Trang công cụ có miễn trừ: kết quả chỉ để tham khảo sơ bộ, không thay thế thiết kế có thẩm tra.
 - Slug URL không dấu, chữ thường, nối bằng gạch ngang. Tiêu đề và mô tả tiếng Việt có dấu.
 

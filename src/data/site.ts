@@ -1,3 +1,5 @@
+import type { IconName } from './icons';
+
 export const SITE = {
   name: 'Dương Quốc Đệ',
   title: 'Dương Quốc Đệ – Kỹ sư lạnh công nghiệp',
@@ -15,3 +17,10 @@ export const NAV = [
   { href: '/bai-viet/', label: 'Bài viết' },
   { href: '/lien-he/', label: 'Liên hệ' },
 ];
+
+// Biểu tượng theo slug nhóm dự án.
+export const PROJECT_ICON: Record<string, IconName> = {
+  'nha-may-che-bien-thuy-san': 'fish',
+  'kho-lanh-logistics': 'warehouse',
+  'che-bien-nong-san-thuc-pham': 'leaf',
+};

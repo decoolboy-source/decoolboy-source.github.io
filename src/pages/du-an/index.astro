@@ -1,20 +1,25 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
+import { PROJECT_ICON } from '../../data/site';
 
 const projects = (await getCollection('du-an')).sort((a, b) => a.data.thuTu - b.data.thuTu);
 ---
 <Base title="Dự án tiêu biểu" description="Dự án lạnh công nghiệp, kho lạnh – cấp đông theo loại hình và vùng.">
-  <h1>Dự án tiêu biểu</h1>
-  <p class="lead">Dự án được nhóm theo loại hình và vùng. Không nêu tên chủ đầu tư; số liệu đã làm tròn.</p>
-  <div class="grid">
+  <header class="page-head">
+    <p class="eyebrow">Dự án</p>
+    <h1>Dự án tiêu biểu</h1>
+    <p class="lead">Dự án được nhóm theo loại hình và vùng. Không nêu tên chủ đầu tư; số liệu đã làm tròn.</p>
+  </header>
+  <div class="grid reveal">
     {projects.map((p) => (
       <article class="card">
-        <a class="stretch" href={`/du-an/${p.id}/`}>
-          <h3>{p.data.title}</h3>
-          <p>{p.data.description}</p>
-          <p class="meta">{p.data.soDuAn} dự án · {p.data.namBatDau}–{p.data.namKetThuc} · {p.data.vung.join(', ')}</p>
-        </a>
+        <span class="icon-badge"><Icon name={PROJECT_ICON[p.id] ?? 'snow'} /></span>
+        <a class="stretch" href={`/du-an/${p.id}/`}><h3>{p.data.title}</h3></a>
+        <p>{p.data.description}</p>
+        <p class="meta"><span>{p.data.soDuAn} dự án</span><span>{p.data.namBatDau}–{p.data.namKetThuc}</span><span>{p.data.vung.join(', ')}</span></p>
+        <span class="go"><Icon name="arrow" /></span>
       </article>
     ))}
   </div>
