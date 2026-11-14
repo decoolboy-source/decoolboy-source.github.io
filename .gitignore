@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+.DS_Store
+Thumbs.db
+# Không commit tài liệu nội bộ (CLAUDE.md mục 3.2)
+*.xlsx
+*.xls
+*.xlsm
+*.dwg
+*.dxf
+*.rvt
+*.docx
+*.pdf
+
+# Cấu hình cục bộ của Claude Code
+.claude/

@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('bai-viet', ({ data }) => !data.nhap))
+  .sort((a, b) => b.data.ngayDang.valueOf() - a.data.ngayDang.valueOf());
+const fmt = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeZone: 'Asia/Ho_Chi_Minh' });
+---
+<Base title="Bài viết kỹ thuật" description="Bài viết kỹ thuật về lạnh công nghiệp, kho lạnh – cấp đông và HVAC, có ghi căn cứ tiêu chuẩn.">
+  <h1>Bài viết kỹ thuật</h1>
+  <p class="lead">Nội dung tự viết. Hệ số và công thức đều ghi căn cứ (TCVN, QCVN, ASHRAE, ASME).</p>
+  {posts.length === 0 ? (
+    <p class="empty">Bài viết đầu tiên đang được chuẩn bị.</p>
+  ) : (
+    <div class="grid">
+      {posts.map((post) => (
+        <article class="card">
+          <a class="stretch" href={`/bai-viet/${post.id}/`}>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <p class="meta"><time datetime={post.data.ngayDang.toISOString()}>{fmt.format(post.data.ngayDang)}</time></p>
+          </a>
+        </article>
+      ))}
+    </div>
+  )}
+</Base>

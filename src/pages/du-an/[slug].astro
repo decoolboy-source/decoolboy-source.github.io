@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('du-an');
+  return projects.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Base title={d.title} description={d.description}>
+  <p class="breadcrumb"><a href="/du-an/">Dự án</a> / {d.title}</p>
+  <div class="prose">
+    <h1>{d.title}</h1>
+    <dl class="facts">
+      <dt>Loại hình</dt><dd>{d.loaiHinh}</dd>
+      <dt>Vùng</dt><dd>{d.vung.join(', ')}</dd>
+      <dt>Giai đoạn</dt><dd>{d.namBatDau}–{d.namKetThuc}</dd>
+      <dt>Số dự án</dt><dd>{d.soDuAn}</dd>
+      {d.moiChat.length > 0 && <><dt>Môi chất</dt><dd>{d.moiChat.join(', ')}</dd></>}
+      {d.vaiTro && <><dt>Vai trò</dt><dd>{d.vaiTro}</dd></>}
+    </dl>
+    {d.hangMuc.length > 0 && (
+      <p>{d.hangMuc.map((h) => <span class="tag">{h}</span>)}</p>
+    )}
+    <Content />
+  </div>
+</Base>

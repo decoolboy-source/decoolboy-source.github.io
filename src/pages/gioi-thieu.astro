@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Giới thiệu" description="Giới thiệu Dương Quốc Đệ – kỹ sư lạnh công nghiệp, kho lạnh – cấp đông, HVAC, MEP và BIM.">
+  <div class="prose">
+    <h1>Giới thiệu</h1>
+    <p class="lead">
+      {SITE.name} – kỹ sư lạnh công nghiệp, hiện là {SITE.role} tại {SITE.company}.
+    </p>
+
+    <h2>Công việc</h2>
+    <p>
+      Tham gia các dự án lạnh công nghiệp trọn gói cho nhà máy chế biến thủy sản, nông sản – thực phẩm và kho lạnh
+      logistics: từ khảo sát, lập phương án, thiết kế, dự toán – đấu thầu đến triển khai và chuyển giao.
+    </p>
+
+    <h2>Lĩnh vực</h2>
+    <ul>
+      <li>Lạnh công nghiệp, kho lạnh – cấp đông</li>
+      <li>HVAC và thông gió</li>
+      <li>MEP, mô hình BIM</li>
+      <li>Dự toán – đấu thầu</li>
+    </ul>
+    <p>Chi tiết xem tại <a href="/chuyen-mon/">Lĩnh vực chuyên môn</a>.</p>
+
+    <h2>Công cụ tự phát triển</h2>
+    <p>
+      Ngoài công việc dự án, tôi tự viết một số ứng dụng web (PWA) phục vụ tính toán sơ bộ và tra cứu thiết bị,
+      dùng được trên điện thoại và khi không có mạng. Danh sách tại <a href="/cong-cu/">Công cụ</a>.
+    </p>
+
+    <p class="note">Trang đang được bổ sung: quá trình công tác, bằng cấp và chứng chỉ sẽ cập nhật sau.</p>
+  </div>
+</Base>

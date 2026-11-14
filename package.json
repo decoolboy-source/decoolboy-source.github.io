@@ -1,0 +1,16 @@
+{
+  "name": "decoolboy-source-github-io",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Website cá nhân Dương Quốc Đệ – Astro, xuất tĩnh, deploy GitHub Pages",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/check-links.mjs",
+    "preview": "astro preview",
+    "check:links": "node scripts/check-links.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.4.12"
+  }
+}

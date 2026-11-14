@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('bai-viet', ({ data }) => !data.nhap);
+  return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const fmt = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'long', timeZone: 'Asia/Ho_Chi_Minh' });
+---
+<Base title={d.title} description={d.description}>
+  <p class="breadcrumb"><a href="/bai-viet/">Bài viết</a> / {d.title}</p>
+  <article class="prose">
+    <h1>{d.title}</h1>
+    <p class="meta">
+      Đăng <time datetime={d.ngayDang.toISOString()}>{fmt.format(d.ngayDang)}</time>
+      {d.ngayCapNhat && <> · cập nhật <time datetime={d.ngayCapNhat.toISOString()}>{fmt.format(d.ngayCapNhat)}</time></>}
+    </p>
+    <Content />
+    <h2>Căn cứ</h2>
+    <ul>{d.canCu.map((c) => <li>{c}</li>)}</ul>
+    <p class="note">Nội dung mang tính tham khảo kỹ thuật, không thay thế thiết kế có thẩm tra.</p>
+  </article>
+</Base>
