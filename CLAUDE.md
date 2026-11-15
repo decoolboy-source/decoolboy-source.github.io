@@ -63,12 +63,12 @@ Namecard và các PWA nằm ở repo riêng, chạy chung origin `decoolboy-sour
 /gioi-thieu/      Giới thiệu
 /chuyen-mon/      Lĩnh vực chuyên môn
 /du-an/           Dự án tiêu biểu  -> /du-an/<slug>/
-/cong-cu/         Công cụ tự phát triển -> link /<ten-repo>/
+/cong-cu/         Công cụ tự phát triển -> /cong-cu/<slug>/ (trang giới thiệu) -> link /<ten-repo>/
 /bai-viet/        Bài viết kỹ thuật -> /bai-viet/<slug>/
 /lien-he/         Liên hệ (dẫn sang /namecard/)
 /chinh-sach/      Miễn trừ trách nhiệm & quyền riêng tư
 /404              Trang lỗi
-sitemap.xml, robots.txt
+sitemap.xml, robots.txt, rss.xml
 ```
 
 ## 6. Repo đã có trên cùng origin (không được trùng tên)

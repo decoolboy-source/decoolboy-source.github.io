@@ -6,9 +6,26 @@ interface Props {
   title?: string;
   description?: string;
   article?: boolean;
+  /** Ảnh xem trước khi chia sẻ link (đường dẫn trong site) và kích thước của nó */
+  image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
+  /** Dữ liệu có cấu trúc schema.org cho trang này (một hoặc nhiều đối tượng) */
+  jsonLd?: object | object[];
 }
 
-const { title, description = SITE.description, article = false } = Astro.props;
+const {
+  title,
+  description = SITE.description,
+  article = false,
+  image = '/og.png',
+  imageWidth = image === '/og.png' ? 1200 : 1280,
+  imageHeight = image === '/og.png' ? 630 : 800,
+  imageAlt = `${SITE.name} – Kỹ sư lạnh công nghiệp`,
+  jsonLd,
+} = Astro.props;
+const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const fullTitle = title ? `${title} | ${SITE.name}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const path = Astro.url.pathname;
@@ -23,9 +40,15 @@ const isActive = (href: string) => path === href || path.startsWith(href);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title={`Bài viết – ${SITE.name}`} href="/rss.xml" />
     <link rel="sitemap" href="/sitemap.xml" />
+    <!-- Tải trước cả gói phông có dấu tiếng Việt để tránh xê dịch bố cục khi phông tải xong -->
     <link rel="preload" href="/fonts/bvp-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bvp-vi-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/bvp-latin-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bvp-vi-700.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#0a2540" />
     <meta property="og:type" content={article ? 'article' : 'website'} />
@@ -34,11 +57,12 @@ const isActive = (href: string) => path === href || path.startsWith(href);
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL('/og.png', Astro.site)} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${SITE.name} – Kỹ sư lạnh công nghiệp`} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
+    {ldList.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
   </head>
   <body>
     {article && <div class="read-progress" aria-hidden="true"></div>}
@@ -84,6 +108,7 @@ const isActive = (href: string) => path === href || path.startsWith(href);
             <li><a href="/lien-he/">Liên hệ</a></li>
             <li><a href="/namecard/">Namecard điện tử</a></li>
             <li><a href="/chinh-sach/">Miễn trừ &amp; quyền riêng tư</a></li>
+            <li><a href="/rss.xml">Theo dõi bài viết (RSS)</a></li>
           </ul>
         </nav>
       </div>

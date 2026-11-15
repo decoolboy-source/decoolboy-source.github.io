@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
+import { breadcrumb } from '../../data/schema';
 
 export async function getStaticPaths() {
   const projects = await getCollection('du-an');
@@ -10,8 +11,13 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
+const ld = breadcrumb(Astro.site!, [
+  { name: 'Trang chủ', path: '/' },
+  { name: 'Dự án', path: '/du-an/' },
+  { name: d.title, path: `/du-an/${entry.id}/` },
+]);
 ---
-<Base title={d.title} description={d.description}>
+<Base title={d.title} description={d.description} jsonLd={ld}>
   <p class="breadcrumb"><a href="/du-an/">Dự án</a> / {d.title}</p>
   <div class="prose">
     <h1>{d.title}</h1>

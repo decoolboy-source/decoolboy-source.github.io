@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { TOOLS, toolPage } from '../data/tools';
 
 const STATIC = ['/', '/gioi-thieu/', '/chuyen-mon/', '/du-an/', '/cong-cu/', '/bai-viet/', '/lien-he/', '/chinh-sach/'];
 
@@ -9,6 +10,7 @@ export const GET: APIRoute = async ({ site }) => {
   const posts = await getCollection('bai-viet', ({ data }) => !data.nhap);
   const urls = [
     ...STATIC.map((p) => ({ loc: p })),
+    ...TOOLS.map((t) => ({ loc: toolPage(t) })),
     ...projects.map((p) => ({ loc: `/du-an/${p.id}/` })),
     ...posts.map((p) => ({
       loc: `/bai-viet/${p.id}/`,

@@ -211,7 +211,7 @@ main > section, main > .section { margin-top: 3.2rem; }
 .icon-badge svg { width: 1.35rem; height: 1.35rem; }
 
 .tag { display: inline-block; font-size: .76rem; font-weight: 600; padding: .16rem .62rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin: 0 .3rem .35rem 0; }
-.tag.alt { background: color-mix(in srgb, var(--accent-2) 14%, var(--surface)); color: color-mix(in srgb, var(--accent-2) 70%, var(--text)); }
+.tag.alt { background: color-mix(in srgb, var(--accent-2) 14%, var(--surface)); color: color-mix(in srgb, var(--accent-2) 52%, var(--text)); }
 .path { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .8rem; }
 
 .note { border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line)); border-left: 4px solid var(--accent); background: var(--accent-soft); padding: .9rem 1.1rem; border-radius: var(--radius-sm); margin: 1.4rem 0; font-size: .95rem; }
@@ -288,3 +288,42 @@ dl.facts dt:last-of-type, dl.facts dd:last-of-type { border-bottom: 0; }
   .site-header, .site-footer, .actions, .read-progress { display: none; }
   body { background: #fff; }
 }
+
+/* ---------- Trang công cụ ---------- */
+.tool-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.tool-card .thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+.tool-card-body { padding: 1.1rem 1.25rem 1.2rem; position: relative; flex: 1; }
+.tool-card .icon-badge { position: absolute; top: -1.4rem; right: 1.1rem; margin: 0; box-shadow: var(--shadow-sm); background: var(--surface); }
+.tool-links { justify-content: space-between; align-items: center; }
+.tool-links span { color: var(--accent); font-weight: 600; }
+/* Liên kết "Mở công cụ" nằm trên lớp phủ của thẻ để bấm được riêng */
+.tool-links .open-link { position: relative; z-index: 1; font-weight: 600; text-decoration: none; padding: .2rem .7rem; border: 1px solid var(--line); border-radius: 999px; color: var(--text); }
+.tool-links .open-link:hover { border-color: var(--accent); color: var(--accent); }
+
+.tool-head { display: flex; gap: 1.1rem; align-items: flex-start; }
+.tool-head .icon-badge { width: 3.2rem; height: 3.2rem; flex: none; margin-top: .3rem; }
+.tool-head .icon-badge svg { width: 1.6rem; height: 1.6rem; }
+@media (max-width: 34rem) { .tool-head { flex-direction: column; gap: .4rem; } }
+
+.shot { margin: 0 0 2.2rem; }
+.shot img { display: block; width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow-lg); background: var(--bg-2); }
+.shot figcaption { font-size: .85rem; color: var(--muted); margin-top: .6rem; text-align: center; }
+
+.tool-cols { display: grid; gap: 1.5rem 2.5rem; grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); align-items: start; }
+.tool-cols .prose h2:first-child { margin-top: 0; }
+.tool-refs { margin-top: 0; position: sticky; top: 5rem; }
+.tool-note { font-size: .88rem; color: var(--muted); margin: .8rem 0 0; }
+@media (max-width: 52rem) { .tool-cols { grid-template-columns: 1fr; } .tool-refs { position: static; } }
+
+/* ---------- Bài viết: mục lục, thời gian đọc, bài liên quan ---------- */
+.toc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem 1.2rem; margin: 0 0 1.8rem; box-shadow: var(--shadow-sm); }
+.toc summary { cursor: pointer; font-weight: 700; color: var(--brand); }
+.toc ol { margin: .6rem 0 0; padding-left: 1.2rem; font-size: .94rem; }
+.toc li { margin: .25rem 0; }
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.prose h2[id], .prose h3[id] { scroll-margin-top: 5.5rem; }
+.related { margin-top: 3rem; }
+
+/* Chỉ dành cho trình đọc màn hình (giữ thứ bậc tiêu đề h1 → h2 → h3) */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

@@ -3,7 +3,8 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { SITE, PROJECT_ICON } from '../data/site';
-import { TOOLS, GROUP_ICON } from '../data/tools';
+import { TOOLS, GROUP_ICON, toolPage } from '../data/tools';
+import { website, personDoc } from '../data/schema';
 
 const projects = (await getCollection('du-an')).sort((a, b) => a.data.thuTu - b.data.thuTu);
 const allPosts = (await getCollection('bai-viet', ({ data }) => !data.nhap))
@@ -15,7 +16,7 @@ const featuredTools = ['CSHLCaculator', 'IrsWorkflows', 'ACHLCaculation']
   .map((r) => TOOLS.find((t) => t.repo === r))
   .filter((t) => t !== undefined);
 ---
-<Base>
+<Base jsonLd={[website(Astro.site!), personDoc(Astro.site!)]}>
   <div class="hero">
     <p class="eyebrow">Lạnh công nghiệp · Kho lạnh – Cấp đông · HVAC · MEP · BIM</p>
     <h1>{SITE.name}</h1>
@@ -64,7 +65,7 @@ const featuredTools = ['CSHLCaculator', 'IrsWorkflows', 'ACHLCaculation']
       {featuredTools.map((t) => (
         <article class="card">
           <span class="icon-badge"><Icon name={GROUP_ICON[t.group]} /></span>
-          <a class="stretch" href={`/${t.repo}/`}><h3>{t.name}</h3></a>
+          <a class="stretch" href={toolPage(t)}><h3>{t.name}</h3></a>
           <p>{t.summary}</p>
           <p class="meta"><span class="tag">{t.group}</span></p>
           <span class="go"><Icon name="arrow" /></span>

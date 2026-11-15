@@ -1,0 +1,101 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { TOOLS, GROUP_ICON, toolHref, toolImage, toolPage, type Tool } from '../../data/tools';
+import { breadcrumb, person } from '../../data/schema';
+
+export function getStaticPaths() {
+  return TOOLS.map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
+}
+
+const { tool } = Astro.props as { tool: Tool };
+const others = TOOLS.filter((t) => t.slug !== tool.slug && t.group === tool.group)
+  .concat(TOOLS.filter((t) => t.slug !== tool.slug && t.group !== tool.group))
+  .slice(0, 3);
+const site = Astro.site!;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.name,
+    description: tool.summary,
+    url: new URL(toolHref(tool), site).href,
+    image: new URL(toolImage(tool), site).href,
+    applicationCategory: 'EngineeringApplication',
+    operatingSystem: 'Web (PWA)',
+    inLanguage: 'vi',
+    isAccessibleForFree: true,
+    author: person(site),
+  },
+  breadcrumb(site, [
+    { name: 'Trang chủ', path: '/' },
+    { name: 'Công cụ', path: '/cong-cu/' },
+    { name: tool.name, path: toolPage(tool) },
+  ]),
+];
+---
+<Base title={tool.name} description={tool.summary} image={toolImage(tool)} jsonLd={jsonLd}>
+  <p class="breadcrumb"><a href="/cong-cu/">Công cụ</a> / {tool.name}</p>
+  <header class="page-head tool-head">
+    <span class="icon-badge"><Icon name={GROUP_ICON[tool.group]} /></span>
+    <div>
+      <p class="eyebrow">{tool.group}</p>
+      <h1>{tool.name}</h1>
+      <p class="lead">{tool.summary}</p>
+      <div class="actions">
+        <a class="btn primary" href={toolHref(tool)}>Mở công cụ</a>
+        <a class="btn" href="/cong-cu/">Các công cụ khác</a>
+      </div>
+    </div>
+  </header>
+
+  <figure class="shot">
+    <img src={toolImage(tool)} width="1280" height="800" alt={`Giao diện ${tool.name}`} loading="eager" decoding="async" />
+    <figcaption>Giao diện {tool.name} (ảnh chụp trên máy tính).</figcaption>
+  </figure>
+
+  <div class="tool-cols">
+    <section class="prose">
+      <h2>Công cụ làm được gì</h2>
+      <ul>{tool.features.map((f) => <li>{f}</li>)}</ul>
+
+      <h2>Cài lên điện thoại, dùng không cần mạng</h2>
+      <ol>
+        <li>Mở <a href={toolHref(tool)}>công cụ</a> bằng Chrome (Android) hoặc Safari (iPhone).</li>
+        <li>Chọn <strong>Thêm vào màn hình chính</strong> hoặc <strong>Cài đặt ứng dụng</strong> trong trình đơn của trình duyệt.</li>
+        <li>Mở từ biểu tượng vừa tạo. Sau lần mở đầu tiên, công cụ chạy được khi không có mạng.</li>
+      </ol>
+
+      <h2>Dữ liệu của anh/chị</h2>
+      <p>
+        Dữ liệu dự án chỉ lưu trong trình duyệt trên thiết bị đang dùng, không gửi về máy chủ nào.
+        Để chuyển máy hoặc sao lưu, dùng chức năng Xuất/Nhập dữ liệu: {tool.dataIO}
+      </p>
+    </section>
+
+    <aside class="refs tool-refs">
+      <h2>Căn cứ và nguồn dữ liệu</h2>
+      <ul>{tool.basis.map((b) => <li>{b}</li>)}</ul>
+      {tool.note && <p class="tool-note"><strong>Lưu ý:</strong> {tool.note}</p>}
+      <p class="tool-note">
+        Kết quả chỉ để tham khảo sơ bộ, <strong>không thay thế thiết kế có thẩm tra</strong>.
+        Xem <a href="/chinh-sach/">Miễn trừ trách nhiệm</a>.
+      </p>
+      <p class="meta"><span class="path">{toolHref(tool)}</span></p>
+    </aside>
+  </div>
+
+  <section>
+    <div class="section-head"><h2>Công cụ khác</h2><a href="/cong-cu/">Tất cả công cụ →</a></div>
+    <div class="grid reveal">
+      {others.map((t) => (
+        <article class="card">
+          <span class="icon-badge"><Icon name={GROUP_ICON[t.group]} /></span>
+          <a class="stretch" href={toolPage(t)}><h3>{t.name}</h3></a>
+          <p>{t.summary}</p>
+          <span class="go"><Icon name="arrow" /></span>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

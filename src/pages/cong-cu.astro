@@ -1,11 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import { TOOLS, GROUP_ICON } from '../data/tools';
+import { TOOLS, GROUP_ICON, toolHref, toolImage, toolPage } from '../data/tools';
+import { breadcrumb } from '../data/schema';
 
 const groups = [...new Set(TOOLS.map((t) => t.group))];
+const site = Astro.site!;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Công cụ tự phát triển',
+    itemListElement: TOOLS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(toolPage(t), site).href, name: t.name })),
+  },
+  breadcrumb(site, [{ name: 'Trang chủ', path: '/' }, { name: 'Công cụ', path: '/cong-cu/' }]),
+];
 ---
-<Base title="Công cụ tự phát triển" description="Ứng dụng web (PWA) tính toán tải nhiệt kho lạnh, HVAC và tra cứu thiết bị lạnh, dùng được khi không có mạng.">
+<Base title="Công cụ tự phát triển" description="Ứng dụng web (PWA) tính toán tải nhiệt kho lạnh, HVAC và tra cứu thiết bị lạnh, dùng được khi không có mạng." jsonLd={jsonLd}>
   <header class="page-head">
     <p class="eyebrow">Công cụ</p>
     <h1>Công cụ tự phát triển</h1>
@@ -18,7 +29,7 @@ const groups = [...new Set(TOOLS.map((t) => t.group))];
   <p class="note">
     <strong>Miễn trừ:</strong> kết quả từ các công cụ chỉ để tham khảo sơ bộ, không thay thế thiết kế có thẩm tra.
     Người dùng tự kiểm tra số liệu đầu vào, hệ số và tiêu chuẩn áp dụng cho công trình của mình.
-    Xem thêm <a href="/chinh-sach/">Miễn trừ trách nhiệm</a> và bài{" "}
+    Xem thêm <a href="/chinh-sach/">Miễn trừ trách nhiệm</a> và bài{' '}
     <a href="/bai-viet/bo-cong-cu-tinh-toan/">giới thiệu bộ công cụ</a>.
   </p>
 
@@ -27,12 +38,17 @@ const groups = [...new Set(TOOLS.map((t) => t.group))];
       <div class="section-head"><h2>{g}</h2></div>
       <div class="grid reveal">
         {TOOLS.filter((t) => t.group === g).map((t) => (
-          <article class="card">
-            <span class="icon-badge"><Icon name={GROUP_ICON[t.group]} /></span>
-            <a class="stretch" href={`/${t.repo}/`}><h3>{t.name}</h3></a>
-            <p>{t.summary}</p>
-            <p class="meta"><span class="path">/{t.repo}/</span></p>
-            <span class="go"><Icon name="arrow" /></span>
+          <article class="card tool-card">
+            <img class="thumb" src={toolImage(t)} width="1280" height="800" alt="" loading="lazy" decoding="async" />
+            <div class="tool-card-body">
+              <span class="icon-badge"><Icon name={GROUP_ICON[t.group]} /></span>
+              <a class="stretch" href={toolPage(t)}><h3>{t.name}</h3></a>
+              <p>{t.summary}</p>
+              <p class="meta tool-links">
+                <span>Xem giới thiệu →</span>
+                <a class="open-link" href={toolHref(t)}>Mở công cụ</a>
+              </p>
+            </div>
           </article>
         ))}
       </div>

@@ -1,8 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SITE } from '../data/site';
+import { personDoc, breadcrumb } from '../data/schema';
+const ld = [personDoc(Astro.site!), breadcrumb(Astro.site!, [{ name: 'Trang chủ', path: '/' }, { name: 'Giới thiệu', path: '/gioi-thieu/' }])];
 ---
-<Base title="Giới thiệu" description="Giới thiệu Dương Quốc Đệ – kỹ sư lạnh công nghiệp, kho lạnh – cấp đông, HVAC, MEP và BIM.">
+<Base jsonLd={ld} title="Giới thiệu" description="Giới thiệu Dương Quốc Đệ – kỹ sư lạnh công nghiệp, kho lạnh – cấp đông, HVAC, MEP và BIM.">
   <header class="page-head">
     <p class="eyebrow">Hồ sơ</p>
     <h1>Giới thiệu</h1>

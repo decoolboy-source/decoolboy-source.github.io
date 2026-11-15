@@ -12,6 +12,7 @@ const projects = (await getCollection('du-an')).sort((a, b) => a.data.thuTu - b.
     <h1>Dự án tiêu biểu</h1>
     <p class="lead">Dự án được nhóm theo loại hình và vùng. Không nêu tên chủ đầu tư; số liệu đã làm tròn.</p>
   </header>
+  <h2 class="sr-only">Các nhóm dự án</h2>
   <div class="grid reveal">
     {projects.map((p) => (
       <article class="card">

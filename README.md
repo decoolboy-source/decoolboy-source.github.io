@@ -42,13 +42,18 @@ src/
   content/du-an/*.md      Dự án theo loại hình – vùng (không tên chủ đầu tư)
   content/bai-viet/*.md   Bài viết (loai: ky-thuat bắt buộc canCu; gioi-thieu thì không)
   data/site.ts            Tên, chức danh, menu, biểu tượng nhóm dự án
-  data/tools.ts           Danh sách công cụ PWA (tên repo đúng hoa/thường)
+  data/tools.ts           Danh sách công cụ PWA: tên repo (đúng hoa/thường), slug trang giới thiệu, tính năng, căn cứ
+  data/schema.ts          Dữ liệu có cấu trúc schema.org (JSON-LD): Person, WebSite, Breadcrumb
+  data/posts.ts           Danh sách bài đã đăng, thời gian đọc
   data/icons.ts           Đường nét biểu tượng SVG
   components/Icon.astro   Biểu tượng inline
   layouts/Base.astro      Khung trang
   pages/                  Trang theo sơ đồ mục 5 CLAUDE.md, kèm sitemap.xml và robots.txt
   styles/global.css       Bảng màu, phông, hiệu ứng (thuần CSS, không JavaScript)
 public/fonts/             Phông Be Vietnam Pro tự host (SIL OFL 1.1, kèm OFL.txt)
+public/images/cong-cu/    Ảnh chụp màn hình từng công cụ (<slug>.webp, 1280×800)
+public/og.png            Ảnh xem trước khi chia sẻ link (1200×630)
+public/apple-touch-icon.png, favicon-32.png, favicon.svg   Biểu tượng
 scripts/check-links.mjs   Kiểm tra sau build
 .github/workflows/deploy.yml  Deploy GitHub Pages bằng withastro/action
 ```
@@ -90,7 +95,9 @@ nhap: false   # true để chưa đăng
 ---
 ```
 
-**Công cụ mới** – thêm dòng vào bảng mục 6 CLAUDE.md và một mục trong `src/data/tools.ts`.
+**Công cụ mới** – thêm dòng vào bảng mục 6 CLAUDE.md và một mục trong `src/data/tools.ts` (`repo`, `slug` không dấu,
+không trùng tên repo nào; `features`, `basis` lấy từ README/giao diện của công cụ, không tự đặt). Thêm ảnh chụp màn hình
+1280×800 vào `public/images/cong-cu/<slug>.webp`. Trang `/cong-cu/<slug>/` tự sinh khi build.
 
 ## Deploy
 
@@ -101,3 +108,14 @@ Site chính không đăng ký service worker và không dùng bộ nhớ trình 
 
 Hiệu ứng (chuyển trang, thẻ hiện dần khi cuộn, thanh tiến độ đọc, hover) đều bằng CSS, tự tắt khi thiết bị bật
 "giảm chuyển động". Giao diện sáng – tối theo cài đặt thiết bị. Trình duyệt cũ không hỗ trợ sẽ hiển thị tĩnh, không mất nội dung.
+
+## SEO và chia sẻ
+
+- Mỗi trang có thẻ Open Graph (ảnh xem trước `og.png`; trang công cụ dùng ảnh chụp màn hình của công cụ đó).
+- Dữ liệu có cấu trúc JSON-LD (`<script type="application/ld+json">`, chỉ là dữ liệu, trình duyệt không chạy):
+  WebSite và Person (trang chủ, giới thiệu), Article/TechArticle (bài viết), SoftwareApplication (trang công cụ),
+  BreadcrumbList (trang con).
+- `sitemap.xml`, `robots.txt`, nguồn RSS `rss.xml` tự sinh khi build.
+- Lighthouse (di động, đo tại máy, 2026-11-15): Truy cập 100, Thực hành tốt 100, SEO 100, Hiệu năng 80–100 tùy lần đo
+  (trang không có JavaScript; dao động do máy đo). Kiểm tra lại trên site thật bằng PageSpeed Insights.
+

@@ -1,26 +1,68 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection, render } from 'astro:content';
+import Icon from '../../components/Icon.astro';
+import { render } from 'astro:content';
+import { publishedPosts, readingMinutes, typeLabel, type Post } from '../../data/posts';
+import { breadcrumb, person } from '../../data/schema';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('bai-viet', ({ data }) => !data.nhap);
-  return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  const posts = await publishedPosts();
+  return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry, all: posts } }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { entry, all } = Astro.props as { entry: Post; all: Post[] };
+const { Content, headings } = await render(entry);
 const d = entry.data;
 const fmt = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'long', timeZone: 'Asia/Ho_Chi_Minh' });
+const minutes = readingMinutes(entry);
+const toc = headings.filter((h) => h.depth === 2);
+// Bài liên quan: ưu tiên cùng loại, sau đó các bài khác; tối đa 3.
+const related = all
+  .filter((p) => p.id !== entry.id)
+  .sort((a, b) => Number(b.data.loai === d.loai) - Number(a.data.loai === d.loai))
+  .slice(0, 3);
+
+const site = Astro.site!;
+const url = new URL(`/bai-viet/${entry.id}/`, site).href;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': d.loai === 'ky-thuat' ? 'TechArticle' : 'Article',
+    headline: d.title,
+    description: d.description,
+    datePublished: d.ngayDang.toISOString(),
+    dateModified: (d.ngayCapNhat ?? d.ngayDang).toISOString(),
+    inLanguage: 'vi',
+    url,
+    mainEntityOfPage: url,
+    image: new URL('/og.png', site).href,
+    author: person(site),
+    timeRequired: `PT${minutes}M`,
+    ...(d.canCu.length ? { citation: d.canCu } : {}),
+  },
+  breadcrumb(site, [
+    { name: 'Trang chủ', path: '/' },
+    { name: 'Bài viết', path: '/bai-viet/' },
+    { name: d.title, path: `/bai-viet/${entry.id}/` },
+  ]),
+];
 ---
-<Base title={d.title} description={d.description} article>
+<Base title={d.title} description={d.description} article jsonLd={jsonLd}>
   <p class="breadcrumb"><a href="/bai-viet/">Bài viết</a> / {d.title}</p>
   <article class="prose">
     <h1>{d.title}</h1>
     <p class="article-meta">
-      <span class="tag alt">{d.loai === 'ky-thuat' ? 'Kỹ thuật' : 'Giới thiệu'}</span>
+      <span class="tag alt">{typeLabel(entry)}</span>
       <span>Đăng <time datetime={d.ngayDang.toISOString()}>{fmt.format(d.ngayDang)}</time></span>
       {d.ngayCapNhat && <span>Cập nhật <time datetime={d.ngayCapNhat.toISOString()}>{fmt.format(d.ngayCapNhat)}</time></span>}
+      <span>{minutes} phút đọc</span>
     </p>
+    {toc.length >= 3 && (
+      <details class="toc" open>
+        <summary>Nội dung bài</summary>
+        <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+      </details>
+    )}
     <Content />
     {d.canCu.length > 0 && (
       <aside class="refs">
@@ -31,8 +73,22 @@ const fmt = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'long', timeZone: 'Asi
     {d.loai === 'ky-thuat' && (
       <p class="note">Nội dung mang tính tham khảo kỹ thuật, không thay thế thiết kế có thẩm tra.</p>
     )}
-    <div class="actions">
-      <a class="btn" href="/bai-viet/">Các bài viết khác</a>
-    </div>
   </article>
+
+  {related.length > 0 && (
+    <section class="related">
+      <div class="section-head"><h2>Bài viết khác</h2><a href="/bai-viet/">Tất cả bài viết →</a></div>
+      <div class="grid reveal">
+        {related.map((p) => (
+          <article class="card">
+            <span class="tag alt">{typeLabel(p)}</span>
+            <a class="stretch" href={`/bai-viet/${p.id}/`}><h3>{p.data.title}</h3></a>
+            <p>{p.data.description}</p>
+            <p class="meta"><span>{readingMinutes(p)} phút đọc</span></p>
+            <span class="go"><Icon name="arrow" /></span>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
 </Base>
