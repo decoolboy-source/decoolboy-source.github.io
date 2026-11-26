@@ -39,12 +39,11 @@ Tính tải nhiệt, lưu lượng gió, ống gió và chọn thiết bị cho 
 
 ## Nhóm tra cứu thiết bị
 
-Bốn công cụ cùng cách dùng: lọc theo điều kiện làm việc, xem thông số, chọn thiết bị vào danh sách rồi lập phiếu yêu cầu báo giá.
+Mỗi hãng là một ứng dụng riêng; hãng có nhiều loại thiết bị thì gộp chung trong một ứng dụng. Cách dùng giống nhau: lọc theo điều kiện làm việc, xem thông số, chọn thiết bị vào danh sách rồi lập phiếu yêu cầu báo giá.
 
-- [Tra cứu máy nén lạnh](/MCselect/): máy nén của nhiều hãng.
-- [Chọn máy nén MYCOM](/MYCOMselect/): riêng máy nén trục vít MYCOM (Mayekawa).
-- [Tra cứu thiết bị giải nhiệt](/ECselect/): dàn ngưng bay hơi và tháp giải nhiệt.
-- [Tra cứu thiết bị bay hơi](/EEselect/): máy đá vảy, chiller màng rơi và bộ trao đổi nhiệt dạng tấm.
+- Máy nén: [MYCOM](/MYCOMselect/), [BITZER](/BITZERselect/), [GEA](/GEAselect/), [Panasonic](/PANASONICselect/), [Copeland](/COPELANDselect/).
+- Dàn ngưng bay hơi, tháp giải nhiệt: [WXR](/WXRselect/) (kèm chiller màng rơi), [Heng An](/HENGANselect/), [OceanBlue](/OCEANBLUEselect/), [EVAPCO](/EVAPCOselect/), [BAC](/BACselect/), [Liang Chi](/LIANGCHIselect/).
+- Máy đá vảy, trao đổi nhiệt: [Snowkey](/SNOWKEYselect/), [GENEGLACE](/GENEGLACEselect/), [Thermowave](/THERMOWAVEselect/).
 
 ## Nhóm tra cứu nhiệt động
 

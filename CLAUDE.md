@@ -78,14 +78,24 @@ sitemap.xml, robots.txt, rss.xml
 | namecard | /namecard/ | Namecard điện tử |
 | CSHLCaculator | /CSHLCaculator/ | Cold Storage Heat Load Calculator (CSHL) |
 | ACHLCaculation | /ACHLCaculation/ | MultiHVAC Calculator (Cleanroom / Data Center / Phòng điện) |
-| MCselect | /MCselect/ | Tra cứu máy nén lạnh đa hãng (có Mycom) |
-| MYCOMselect | /MYCOMselect/ | Chọn máy nén MYCOM (tách từ MCselect, chỉ dữ liệu MYCOM) |
-| ECselect | /ECselect/ | Tra cứu dàn ngưng bay hơi & tháp giải nhiệt (WXR, EVAPCO…) |
-| EEselect | /EEselect/ | Tra cứu thiết bị bay hơi: máy đá vảy, chiller màng rơi, PHE |
+| MYCOMselect | /MYCOMselect/ | Chọn máy nén MYCOM |
+| BITZERselect | /BITZERselect/ | Chọn máy nén BITZER (HyperPAC) |
+| GEAselect | /GEAselect/ | Chọn máy nén GEA Grasso |
+| PANASONICselect | /PANASONICselect/ | Chọn máy nén Panasonic (OCU) |
+| COPELANDselect | /COPELANDselect/ | Chọn máy nén Copeland (ZX) |
+| WXRselect | /WXRselect/ | Thiết bị WXR: dàn ngưng, tháp giải nhiệt, chiller màng rơi |
+| HENGANselect | /HENGANselect/ | Thiết bị Heng An: dàn ngưng, tháp giải nhiệt |
+| OCEANBLUEselect | /OCEANBLUEselect/ | Thiết bị OceanBlue: dàn ngưng bay hơi |
+| EVAPCOselect | /EVAPCOselect/ | Thiết bị EVAPCO: dàn ngưng, tháp giải nhiệt |
+| BACselect | /BACselect/ | Thiết bị BAC: dàn ngưng bay hơi |
+| LIANGCHIselect | /LIANGCHIselect/ | Thiết bị Liang Chi: tháp giải nhiệt |
+| SNOWKEYselect | /SNOWKEYselect/ | Thiết bị Snowkey: đá vảy, silo, vận chuyển, cân đá |
+| GENEGLACEselect | /GENEGLACEselect/ | Thiết bị GENEGLACE: máy tạo đá vảy |
+| THERMOWAVEselect | /THERMOWAVEselect/ | Thiết bị Thermowave: trao đổi nhiệt dạng tấm |
 | IrsWorkflows | /IrsWorkflows/ | Suite thiết kế kho lạnh NH3 (Hub Shell, 4 công cụ) |
 | Toolkits | /Toolkits/ | AppThermoEngine |
 
-Cập nhật ngày 2026-11-14 từ `gh repo list decoolboy-source`; MYCOMselect thêm 2026-11-26; cả 9 repo đều bật GitHub Pages.
+Cập nhật ngày 2026-11-26: app chọn thiết bị tách theo hãng, mỗi hãng một repo `<HÃNG>select` (một hãng có nhiều loại thiết bị thì gộp chung một app, ví dụ WXRselect). Ba app nhiều hãng cũ MCselect, ECselect, EEselect đã ngừng. Tất cả repo trong bảng đều bật GitHub Pages.
 Đường dẫn phân biệt chữ hoa/thường: link phải ghi đúng tên repo (ví dụ `/CSHLCaculator/`, không phải `/cshlcaculator/`).
 Khi tạo repo công cụ mới, thêm một dòng vào bảng này.
 
