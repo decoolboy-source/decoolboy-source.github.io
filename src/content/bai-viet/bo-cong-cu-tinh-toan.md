@@ -39,9 +39,10 @@ Tính tải nhiệt, lưu lượng gió, ống gió và chọn thiết bị cho 
 
 ## Nhóm tra cứu thiết bị
 
-Ba công cụ cùng cách dùng: lọc theo điều kiện làm việc, xem thông số, chọn thiết bị vào danh sách rồi lập phiếu yêu cầu báo giá.
+Bốn công cụ cùng cách dùng: lọc theo điều kiện làm việc, xem thông số, chọn thiết bị vào danh sách rồi lập phiếu yêu cầu báo giá.
 
 - [Tra cứu máy nén lạnh](/MCselect/): máy nén của nhiều hãng.
+- [Chọn máy nén MYCOM](/MYCOMselect/): riêng máy nén trục vít MYCOM (Mayekawa).
 - [Tra cứu thiết bị giải nhiệt](/ECselect/): dàn ngưng bay hơi và tháp giải nhiệt.
 - [Tra cứu thiết bị bay hơi](/EEselect/): máy đá vảy, chiller màng rơi và bộ trao đổi nhiệt dạng tấm.
 

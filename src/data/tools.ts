@@ -102,6 +102,21 @@ export const TOOLS: Tool[] = [
     dataIO: 'Trang Báo cáo: xuất/nhập phiếu dự án (thiết bị đã chọn, thông tin dự án).',
   },
   {
+    repo: 'MYCOMselect',
+    slug: 'chon-may-nen-mycom',
+    name: 'Chọn máy nén MYCOM',
+    group: 'Tra cứu thiết bị',
+    summary: 'Chọn máy nén trục vít MYCOM (Mayekawa) theo điều kiện vận hành, lập phiếu yêu cầu báo giá.',
+    features: [
+      '10 series máy nén trục vít MYCOM một cấp và hai cấp (N160VLD … N250VSD, 2016LSC, 2520LSC), môi chất NH3.',
+      'Lọc theo loại gas → nhiệt độ ngưng tụ → nhiệt độ bay hơi; tra theo model hoặc theo công suất lạnh.',
+      'Giỏ chọn thiết bị, thông tin dự án, điều kiện thương mại.',
+      'Xuất phiếu yêu cầu báo giá dạng CSV, PDF, Word.',
+    ],
+    basis: ['Dữ liệu trích từ catalogue của hãng; đối chiếu catalogue gốc trước khi chọn máy'],
+    dataIO: 'Trang Báo cáo: xuất/nhập phiếu dự án (thiết bị đã chọn, thông tin dự án).',
+  },
+  {
     repo: 'ECselect',
     slug: 'tra-cuu-thiet-bi-giai-nhiet',
     name: 'Tra cứu thiết bị giải nhiệt',

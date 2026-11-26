@@ -79,12 +79,13 @@ sitemap.xml, robots.txt, rss.xml
 | CSHLCaculator | /CSHLCaculator/ | Cold Storage Heat Load Calculator (CSHL) |
 | ACHLCaculation | /ACHLCaculation/ | MultiHVAC Calculator (Cleanroom / Data Center / Phòng điện) |
 | MCselect | /MCselect/ | Tra cứu máy nén lạnh đa hãng (có Mycom) |
+| MYCOMselect | /MYCOMselect/ | Chọn máy nén MYCOM (tách từ MCselect, chỉ dữ liệu MYCOM) |
 | ECselect | /ECselect/ | Tra cứu dàn ngưng bay hơi & tháp giải nhiệt (WXR, EVAPCO…) |
 | EEselect | /EEselect/ | Tra cứu thiết bị bay hơi: máy đá vảy, chiller màng rơi, PHE |
 | IrsWorkflows | /IrsWorkflows/ | Suite thiết kế kho lạnh NH3 (Hub Shell, 4 công cụ) |
 | Toolkits | /Toolkits/ | AppThermoEngine |
 
-Cập nhật ngày 2026-11-14 từ `gh repo list decoolboy-source`; cả 8 repo đều bật GitHub Pages.
+Cập nhật ngày 2026-11-14 từ `gh repo list decoolboy-source`; 8 repo đầu đều bật GitHub Pages; MYCOMselect (thêm 2026-11-26) cần tạo repo và bật Pages.
 Đường dẫn phân biệt chữ hoa/thường: link phải ghi đúng tên repo (ví dụ `/CSHLCaculator/`, không phải `/cshlcaculator/`).
 Khi tạo repo công cụ mới, thêm một dòng vào bảng này.
 
