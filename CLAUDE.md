@@ -85,7 +85,7 @@ sitemap.xml, robots.txt, rss.xml
 | IrsWorkflows | /IrsWorkflows/ | Suite thiết kế kho lạnh NH3 (Hub Shell, 4 công cụ) |
 | Toolkits | /Toolkits/ | AppThermoEngine |
 
-Cập nhật ngày 2026-11-14 từ `gh repo list decoolboy-source`; 8 repo đầu đều bật GitHub Pages; MYCOMselect (thêm 2026-11-26) cần tạo repo và bật Pages.
+Cập nhật ngày 2026-11-14 từ `gh repo list decoolboy-source`; MYCOMselect thêm 2026-11-26; cả 9 repo đều bật GitHub Pages.
 Đường dẫn phân biệt chữ hoa/thường: link phải ghi đúng tên repo (ví dụ `/CSHLCaculator/`, không phải `/cshlcaculator/`).
 Khi tạo repo công cụ mới, thêm một dòng vào bảng này.
 
