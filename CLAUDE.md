@@ -94,6 +94,7 @@ sitemap.xml, robots.txt, rss.xml
 | THERMOWAVEselect | /THERMOWAVEselect/ | Thiết bị Thermowave: trao đổi nhiệt dạng tấm |
 | IrsWorkflows | /IrsWorkflows/ | Suite thiết kế kho lạnh NH3 (Hub Shell, 4 công cụ) |
 | Toolkits | /Toolkits/ | AppThermoEngine |
+| RefHandbook | /RefHandbook/ | Sổ tay hệ thống lạnh dùng chung (sổ tay riêng từng hãng nằm trong app `<HÃNG>select`) |
 
 Cập nhật ngày 2026-11-26: app chọn thiết bị tách theo hãng, mỗi hãng một repo `<HÃNG>select` (một hãng có nhiều loại thiết bị thì gộp chung một app, ví dụ WXRselect). Ba app nhiều hãng cũ MCselect, ECselect, EEselect đã ngừng. Tất cả repo trong bảng đều bật GitHub Pages.
 Đường dẫn phân biệt chữ hoa/thường: link phải ghi đúng tên repo (ví dụ `/CSHLCaculator/`, không phải `/cshlcaculator/`).

@@ -285,6 +285,27 @@ export const TOOLS: Tool[] = [
     dataIO: 'Trang Báo cáo → Sao lưu dữ liệu: xuất/nhập phiếu dự án.',
   },
   {
+    repo: 'RefHandbook',
+    slug: 'so-tay-he-thong-lanh',
+    name: 'Sổ tay hệ thống lạnh',
+    group: 'Lạnh công nghiệp',
+    summary: 'Sổ tay kiến thức dùng chung cho mọi hãng thiết bị: nhiệt thải và cỡ dàn ngưng, áp suất ngưng cao, nước dàn ngưng, NH3 lượng nạp thấp, trao đổi nhiệt tấm.',
+    features: [
+      'Máy tính nhiệt thải ra dàn ngưng và năng suất danh định cần chọn theo nhiệt độ ngưng, bầu ướt (bảng hệ số R717 và HFC); lấy số từ giỏ chọn của các app máy nén MYCOM, BITZER, GEA, Copeland, Panasonic.',
+      'Bảng tìm nguyên nhân áp suất ngưng cao phía dàn ngưng, bảng áp suất bão hòa NH3 để kiểm tra khí không ngưng.',
+      'Giới hạn nước dàn ngưng bay hơi; máy tính số chu kỳ cô đặc, lượng xả đáy và nước bổ sung.',
+      'Checklist chạy thử dàn ngưng bay hơi (lưu trạng thái trên máy).',
+      'Hệ NH3 lượng nạp thấp: ước tính lượng nạp theo kiểu hệ; trao đổi nhiệt tấm quanh máy nén.',
+      'Mở thẳng từng mục bằng liên kết; tab Sổ tay của các app hãng dẫn sang đây.',
+    ],
+    basis: [
+      'Tóm tắt từ tài liệu kỹ thuật của BAC, Evapco, Güntner/ECOSS, thermowave',
+      'Tỷ lệ nhiệt dầu máy nén tính từ dữ liệu của app chọn máy nén MYCOM',
+    ],
+    note: 'Chỉ để tham khảo; đối chiếu tài liệu gốc và catalogue thiết bị trước khi áp dụng.',
+    dataIO: 'Không có dữ liệu dự án; số nhập và trạng thái checklist lưu trên trình duyệt.',
+  },
+  {
     repo: 'Toolkits',
     slug: 'tra-cuu-nhiet-dong',
     entry: 'AppThermoEngine.html',
